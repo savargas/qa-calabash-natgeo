@@ -1,7 +1,7 @@
 require 'calabash-android/calabash_steps'
 
 Given(/^I am on the Experience Screen$/) do
-  if @app.experience_screen.experience_state
+  if @app.experience_screen.experience_state_true
     @app.experience_screen.await
   else
     @app.home_screen.channelButton.touch
@@ -26,6 +26,7 @@ Then(/^I see the Nat Geo Wild home screen$/) do
 end
 
 When(/^I select the Channel button$/) do
+  @app.home_screen.channelButton.await
   @app.home_screen.channelButton.touch
 end
 
@@ -39,9 +40,22 @@ end
 
 And(/^I tap the video image$/) do
   @app.videodetail_screen.video_image.touch
+  sleep(10)
 end
 
 Then(/^I verify video is playing$/) do
+  sleep(5)
   @app.video_screen.await
 end
 
+And(/^I navigate to Settings$/) do
+  @app.experience_screen.natchannel.touch
+  @app.home_screen.natGeoChannel.await
+  @app.home_screen.menu.touch
+  @app.menu_screen.settings.touch
+  @app.settings_screen.await
+end
+
+When(/^I select Reset Preview Passes$/) do
+  @app.settings_screen.reset_pass_full.touch
+end

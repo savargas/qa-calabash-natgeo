@@ -11,10 +11,8 @@ class VideoScreen < Testmunk::Android::Screen
   button :closed_caption, {id: 'closed_caption'}
   button :SignInText, {id:'textViewOverlaySignInText'}
 
-
   def traits
     [ad_display]
   end
-
 
 end

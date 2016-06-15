@@ -14,6 +14,4 @@ class VideodetailScreen < Testmunk::Android::Screen
     [video_page_title]
   end
 
-
-
 end

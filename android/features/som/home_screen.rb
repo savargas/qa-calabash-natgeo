@@ -4,7 +4,7 @@ class HomeScreen < Testmunk::Android::Screen
   button :filterDropdown, {id:'dropdownSpinnerView'}
   button :menu, {id: 'menuButtonDefault'}
   text :destinationWild, {marked:'Destination Wild'}
-  text :natGeoChannel, {marked:'I Am Rebel'}
+  text :natGeoChannel, {marked:'False Bottom'}
 
   def home_state
     query("* id:'channelButton'")
