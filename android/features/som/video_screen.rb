@@ -12,7 +12,7 @@ class VideoScreen < Testmunk::Android::Screen
   button :SignInText, {id:'textViewOverlaySignInText'}
 
   def traits
-    [ad_display]
+    ad_display
   end
 
 end

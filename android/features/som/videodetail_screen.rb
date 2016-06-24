@@ -1,6 +1,6 @@
 class VideodetailScreen < Testmunk::Android::Screen
 
-  view :video_page_title, {marked:'Videos'}
+  view :page_title, {marked:'Videos'}
   text :episode_title, {id:'headline'}
   text :series_title, {id:'showNameTextView'}
   text :duration, {id:'durationTextView'}
@@ -11,7 +11,7 @@ class VideodetailScreen < Testmunk::Android::Screen
   button :favorite_button, {id:'socialButton'}
 
   def traits
-    [video_page_title]
+    page_title
   end
 
 end

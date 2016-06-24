@@ -35,7 +35,7 @@ When(/^I tap on the video titled "([^"]*)"$/) do |video_title|
 end
 
 Then(/^I verify the video detail screen appears$/) do
-  @app.videodetail_screen.video_page_title.await
+  @app.videodetail_screen.page_title.await
 end
 
 And(/^I tap the video image$/) do
@@ -49,8 +49,7 @@ Then(/^I verify video is playing$/) do
 end
 
 And(/^I navigate to Settings$/) do
-  @app.experience_screen.natchannel.touch
-  @app.home_screen.natGeoChannel.await
+  @app.home_screen.channelButton.await
   @app.home_screen.menu.touch
   @app.menu_screen.settings.touch
   @app.settings_screen.await
@@ -58,4 +57,59 @@ end
 
 When(/^I select Reset Preview Passes$/) do
   @app.settings_screen.reset_pass_full.touch
+end
+
+
+And(/^I select Provider Signin$/) do
+  @app.settings_screen.provider_signin.touch
+end
+
+Then(/^I see the Choose Provider screen$/) do
+  @app.providerlist_screen.page_title.await
+end
+
+When(/^I select the "([^"]*)" provider$/) do |provider_name|
+  touch("* marked:'#{provider_name}'")
+end
+
+When(/^I search for the "([^"]*)" provider$/) do |provider_name|
+  @app.providerlist_screen.scroll_to_name(provider_name)
+end
+
+Then(/^I see the provider Sign In screen$/) do
+  @app.providersignin_screen.await
+end
+
+When(/^I type "([^"]*)" to name field$/) do |username|
+  @app.providersignin_screen.username_field(username)
+end
+
+And(/^I type "([^"]*)" to password field$/) do |password|
+  @app.providersignin_screen.password_field(password)
+end
+
+And(/^I press Login on the SignIn screen$/) do
+  press_enter_button
+end
+
+Then(/^I should see the provider banner on the home screen$/) do
+  @app.home_screen.channelButton.await
+  @app.home_screen.provider_traits
+end
+
+Then(/^I should see the provider banner and logout button on the Settings screen$/) do
+  @app.settings_screen.await
+  @app.settings_screen.provider_traits
+end
+
+When(/^I select the logout button$/) do
+  @app.settings_screen.logout.touch
+end
+
+Then(/^I should not see the provider and logout button on the Settings screen$/) do
+  check_element_does_not_exist(@app.settings_screen.provider_traits)
+end
+
+Then(/^I should not see the provider banner on the home screen/) do
+  check_element_does_not_exist(@app.home_screen.provider_traits)
 end
