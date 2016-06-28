@@ -3,8 +3,8 @@ class HomeScreen < Testmunk::Android::Screen
   button :channelButton, {id:'channelButton'}
   button :filterDropdown, {id:'dropdownSpinnerView'}
   button :menu, {id: 'menuButtonDefault'}
-  text :destinationWild, {marked:'Safari Live'}
-  text :natGeoChannel, {marked:'No Shortcuts'}
+  text :destinationWild, {marked:'SharkFest'}
+  text :natGeoChannel, {marked:'The Confrontation'}
   view :tv_provider_label, {marked:'TV Provider'}
   view :provider_banner, {id:'currentProviderBarLayout'}
 

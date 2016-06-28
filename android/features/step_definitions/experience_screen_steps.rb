@@ -113,3 +113,32 @@ end
 Then(/^I should not see the provider banner on the home screen/) do
   check_element_does_not_exist(@app.home_screen.provider_traits)
 end
+
+When(/^I login to the "([^"]*)" provider with email "([^"]*)" and password "([^"]*)"$/) do |provider_name, username,
+    password|
+  @app.home_screen.menu.touch
+  @app.menu_screen.settings.touch
+  @app.settings_screen.await
+  @app.settings_screen.provider_signin.touch
+
+  @app.providerlist_screen.page_title.await
+  @app.providerlist_screen.scroll_to_name(provider_name)
+  touch("* marked:'#{provider_name}'")
+  @app.providersignin_screen.await
+  @app.providersignin_screen.username_field(username)
+  @app.providersignin_screen.password_field(password)
+  press_enter_button
+
+  @app.settings_screen.await
+  @app.settings_screen.provider_traits
+  press_back_button
+end
+
+When(/^I logout$/) do
+  @app.home_screen.menu.touch
+  @app.menu_screen.settings.touch
+  @app.settings_screen.await
+  @app.settings_screen.logout.touch
+  check_element_does_not_exist(@app.settings_screen.provider_traits)
+  press_back_button
+end

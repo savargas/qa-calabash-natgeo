@@ -31,7 +31,7 @@ Feature: Launch the app and access the "Choose Your Experience" channels
     Given I am on the Experience Screen
     When I select the National Geographic Channel button
     Then I see the National Geographic Channel home screen
-    When I tap on the video titled "No Shortcuts"
+    When I tap on the video titled "The Confrontation"
     Then I verify the video detail screen appears
     When I tap the video image
     Then I verify video is playing
@@ -42,15 +42,14 @@ Feature: Launch the app and access the "Choose Your Experience" channels
     Given I am on the Experience Screen
     When I select the Nat Geo Wild button
     Then I see the Nat Geo Wild home screen
-    When I tap on the video titled "Deadly Game"
+    When I tap on the video titled "SharkFest"
     Then I verify the video detail screen appears
     When I tap the video image
     Then I verify video is playing
       And I take a screenshot
 
   @signin
-  Scenario: Sign into a provider and verify the provider banner shows on the homescreen, and video thumbnails no
-  longer shows locked
+  Scenario: Sign into a provider and verify the provider banner shows on the homes screen and settings screen
     Given I am on the Experience Screen
     When I select the National Geographic Channel button
     Then I see the National Geographic Channel home screen
@@ -64,5 +63,28 @@ Feature: Launch the app and access the "Choose Your Experience" channels
       And I type "support34" to password field
       And I press Login on the SignIn screen
     Then I should see the provider banner and logout button on the Settings screen
-    When I go back
+    When I press the Back button
     Then I should see the provider banner on the home screen
+
+   @logout
+   Scenario: Verify the app logs out successfully and the provider banners are no longer shown
+     Given I am on the Experience Screen
+      And I select the National Geographic Channel button
+      And I should see the provider banner on the home screen
+      And I see the National Geographic Channel home screen
+     When I navigate to Settings
+      And I select the logout button
+     Then I should not see the provider and logout button on the Settings screen
+     When I press the Back button
+     Then I should not see the provider banner on the home screen
+
+  @signinout
+  Scenario: Verify sign in and sign out works correctly
+    Given I am on the Experience Screen
+    When I select the National Geographic Channel button
+    Then I see the National Geographic Channel home screen
+    When I login to the "Optimum" provider with email "research34" and password "support34"
+    Then I should see the provider banner on the home screen
+    When I logout
+    Then I should not see the provider banner on the home screen
+
