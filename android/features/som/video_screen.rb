@@ -6,7 +6,7 @@ class VideoScreen < Testmunk::Android::Screen
   view :temp_pass, {id: 'linearLayoutTemppassOverlayContainer'}
   view :temp_pass_text, {id:'textViewOverlayMainText'}
   view :progress_bar, {id:'video_progress_bar'}
-  view :ad_display, {id:'ad_container'}
+  view :ad_display, ("VideoAdView")
   button :play_pause, {id: 'play_pause'}
   button :closed_caption, {id: 'closed_caption'}
   button :SignInText, {id:'textViewOverlaySignInText'}

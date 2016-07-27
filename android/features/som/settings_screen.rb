@@ -20,4 +20,5 @@ class SettingsScreen < Testmunk::Android::Screen
   def provider_traits
     [current_provider, logout]
   end
+
 end

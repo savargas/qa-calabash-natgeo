@@ -1,64 +1,8 @@
 require 'calabash-android/calabash_steps'
 
-Given(/^I am on the Experience Screen$/) do
-  if @app.experience_screen.experience_state_true
-    @app.experience_screen.await
-  else
-    @app.home_screen.channelButton.touch
-    @app.experience_screen.await
-  end
-end
-
-When(/^I select the National Geographic Channel button$/) do
-  @app.experience_screen.natchannel.touch
-end
-
-Then(/^I see the National Geographic Channel home screen$/) do
-  @app.home_screen.natGeoChannel.await
-end
-
-When(/^I select the Nat Geo Wild button$/) do
-  @app.experience_screen.natgeo.touch
-end
-
-Then(/^I see the Nat Geo Wild home screen$/) do
-  @app.home_screen.destinationWild.await
-end
-
-When(/^I select the Channel button$/) do
-  @app.home_screen.channelButton.await
-  @app.home_screen.channelButton.touch
-end
-
-When(/^I tap on the video titled "([^"]*)"$/) do |video_title|
-  @app.home_screen.episode_title(video_title).touch
-end
-
-Then(/^I verify the video detail screen appears$/) do
-  @app.videodetail_screen.page_title.await
-end
-
-And(/^I tap the video image$/) do
-  @app.videodetail_screen.video_image.touch
-  sleep(10)
-end
-
-Then(/^I verify video is playing$/) do
-  sleep(5)
-  @app.video_screen.await
-end
-
-And(/^I navigate to Settings$/) do
-  @app.home_screen.channelButton.await
-  @app.home_screen.menu.touch
-  @app.menu_screen.settings.touch
-  @app.settings_screen.await
-end
-
 When(/^I select Reset Preview Passes$/) do
   @app.settings_screen.reset_pass_full.touch
 end
-
 
 And(/^I select Provider Signin$/) do
   @app.settings_screen.provider_signin.touch
@@ -107,14 +51,16 @@ When(/^I select the logout button$/) do
 end
 
 Then(/^I should not see the provider and logout button on the Settings screen$/) do
-  check_element_does_not_exist(@app.settings_screen.provider_traits)
+  check_element_does_not_exist("* marked:'#{@app.settings_screen.current_provider}'")
+  check_element_does_not_exist("* marked:'#{@app.settings_screen.logout}'")
 end
 
 Then(/^I should not see the provider banner on the home screen/) do
-  check_element_does_not_exist(@app.home_screen.provider_traits)
+  check_element_does_not_exist(@app.home_screen.tv_provider_label)
+  check_element_does_not_exist(@app.home_screen.provider_banner)
 end
 
-When(/^I login to the "([^"]*)" provider with email "([^"]*)" and password "([^"]*)"$/) do |provider_name, username,
+When(/^I login to the "([^"]*)" provider with username "([^"]*)" and password "([^"]*)"$/) do |provider_name, username,
     password|
   @app.home_screen.menu.touch
   @app.menu_screen.settings.touch
@@ -130,15 +76,24 @@ When(/^I login to the "([^"]*)" provider with email "([^"]*)" and password "([^"
   press_enter_button
 
   @app.settings_screen.await
+  puts "Await finished"
   @app.settings_screen.provider_traits
+  puts "checking traits successful"
   press_back_button
 end
 
 When(/^I logout$/) do
   @app.home_screen.menu.touch
+  puts "touch menu"
   @app.menu_screen.settings.touch
+  puts "touch menu"
   @app.settings_screen.await
+  puts "settings shows successfully"
   @app.settings_screen.logout.touch
-  check_element_does_not_exist(@app.settings_screen.provider_traits)
+  puts "touch logout"
+  check_element_does_not_exist("* marked:'#{@app.settings_screen.current_provider}'")
+  puts "current provider doesn't show"
+  check_element_does_not_exist("* marked:'#{@app.settings_screen.logout}'")
+  puts "logout button doesn't show"
   press_back_button
 end
